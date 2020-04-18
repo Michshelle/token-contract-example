@@ -3,12 +3,13 @@ const program = require('commander');
 const { Tezos } = require('@taquito/taquito');
 const { encodeExpr } = require('@taquito/utils');
 const { HttpBackend } = require('@taquito/http-utils');
+const { MichelsonMap } = require('@taquito/taquito');
 program.version('0.0.1');
 
 const setup = async () => {
     const { email, password, mnemonic, secret } = JSON.parse(fs.readFileSync('./faucet.json').toString())
 
-    Tezos.setProvider({ rpc: "https://api.tez.ie/rpc/babylonnet" })
+    Tezos.setProvider({ rpc: "https://api.tez.ie/rpc/carthagenet" })
 
     await Tezos.importKey(email, password, mnemonic.join(" "), secret)
     return Tezos;
@@ -22,15 +23,17 @@ program.command("deploy <total_supply>")
             const op = await Tezos.contract.originate({
                 code: JSON.parse(fs.readFileSync("./build/Token.json").toString()),
                 storage: {
+                    owner: await Tezos.signer.publicKeyHash(),
                     totalSupply: total_supply,
-                    ledger: {
+                    ledger: MichelsonMap.fromLiteral({
                         [await Tezos.signer.publicKeyHash()]: {
                             balance: total_supply,
-                            allowances: {
-                                [await Tezos.signer.publicKeyHash()]: total_supply,
-                            },
+                            allowances: MichelsonMap.fromLiteral({
+                                /*"tz1YRDXbmRY2rBNawGEsWJpMayvfJeEVM5eP": total_supply,*/
+                            })
                         }
-                    }
+                })
+    
                 },
             })
             const contract = await op.contract();
