@@ -16,6 +16,7 @@ Run `npm run build`
 
 ## Updated based on the original repo
 code is modified due to below changes:
+
 ligo upgraded
 
 taquito upgraded
