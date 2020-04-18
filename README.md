@@ -23,8 +23,7 @@ run under tezos folder: `./tezos-client get script entrypoints for Token.ml` to 
 After that, you can do something according to the output, like `./tezos-client transfer 0 from blublublue to KT1SmPNJAsJH4p3bxZ1cHNWj66RkEk5e1j9V --entrypoint approve --arg '(Pair "tz1McNt8ByDbhV5BVbc9Cx49suvjcGva56yF" 12)' --burn-cap 1`
 
 
-# BELOW IS FROM ORIGINAL README#######################
-
+# BELOW IS FROM ORIGINAL README###
 ## Install
 
 Run `npm install`
