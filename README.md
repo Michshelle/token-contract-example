@@ -8,6 +8,8 @@ ligo upgraded
 
 taquito upgraded
 
+network switch to carthagenet
+
 ## Special Usage
 run `npm install`, `npm run build` and `node cli.js deploy 500 (or whatever amount here, no need to be 500)`.
 
